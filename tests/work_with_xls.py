@@ -1,6 +1,6 @@
 import xlrd
 
-xls_table = xlrd.open_workbook('../resouces/items.xls')
+xls_table = xlrd.open_workbook('../resources/items.xls')
 print(xls_table.nsheets)
 print(xls_table.sheet_names())
 sheet1 = xls_table.sheet_by_index(0)

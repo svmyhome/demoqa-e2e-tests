@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-book = load_workbook('../resouces/items2.xlsx')
+book = load_workbook('../resources/items2.xlsx')
 sheets = book.active
 print(sheets)
 print(sheets.cell(row=1, column=1).value)
