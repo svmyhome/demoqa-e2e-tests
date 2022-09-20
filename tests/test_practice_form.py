@@ -2,11 +2,13 @@ import os
 from selene import have, be
 from selene.support.shared import browser
 
+from tests.test_data import users
+
 
 def wait_and_remove_ads():
     ads = browser.all('#RightSide_Advertisement')
     '''ждет чтобы все отобразилась, одна реклама и если дожидается то удаляет иначе скипает'''
-    if ads.wait_until(have.size_greater_than_or_equal(1)):
+    if ads.wait_until(have.size_greater_than_or_equal(3)):
         browser.execute_script(
             'document.querySelectorAll("#RightSide_Advertisement").forEach(element => element.remove())')
 
@@ -26,11 +28,11 @@ def test_fill_in_practice_form():
     wait_and_remove_ads()
     browser.should(have.title('ToolsQA'))
     browser.element('.main-header').should(be.visible)
-    browser.element('#firstName').type('Ivan')
-    browser.element('#lastName').type('Ivanov')
-    browser.element('#userEmail').type('Ivan@Ivanov.ru')
+    browser.element('#firstName').type(users.sample_user['first_name'])
+    browser.element('#lastName').type(users.sample_user['last_name'])
+    browser.element('#userEmail').type(users.sample_user['user_email'])
     browser.element('[for="gender-radio-1"]').click()
-    browser.element('#userNumber').type('0123456789')
+    browser.element('#userNumber').type(users.sample_user['mobile'])
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__year-select [value="2019"]').click()
     browser.element('.react-datepicker__month-select [value="5"]').click()

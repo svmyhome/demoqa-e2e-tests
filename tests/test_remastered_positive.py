@@ -3,10 +3,11 @@ from selene.support.shared import browser
 from selene import be, have, by
 import time
 
+from tests.test_data import users
 
 name_form = "Practice Form"
 fill_in_form_title = "Thanks for submitting the form"
-first_name = "Ivan"
+first_name = 'Ivan'
 last_name = "Ivanov"
 user_email = "Ivanov@.mail.ru"
 gender = "Male"
@@ -15,18 +16,13 @@ mobile = "1234567890"
 
 selene_name = "yashaka/selene: User-oriented Web UI browser tests in Python"
 
-
 @pytest.fixture()
-def open_browser():
-    browser.config.browser_name = 'chrome'
-
-@pytest.fixture()
-def configure_mobile_browser(open_browser):
+def configure_mobile_browser():
     browser.config.window_width = 375
     browser.config.window_height = 667
 
 @pytest.fixture()
-def configure_desktop_browser(open_browser):
+def configure_desktop_browser():
     browser.config.window_width = 1920
     browser.config.window_height = 1000
 
