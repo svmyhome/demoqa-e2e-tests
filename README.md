@@ -1,6 +1,9 @@
 # demoqa-e2e-tests
 
+### Keys pyCharm
 Alt + shift + E  в режиме дебага выполнить одну строку
+
+### Tips and Tricks
 
 setTimeout(function() {debugger}, 3000);   остановка JavaScripts
 or 
