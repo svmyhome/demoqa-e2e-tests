@@ -1,5 +1,12 @@
 # demoqa-e2e-tests
 
+Alt + shift + E  в режиме дебага выполнить одну строку
+
+setTimeout(function() {debugger}, 3000);   остановка JavaScripts
+or 
+перейти в настройки хром три точки->More tools->Rendering->Emulate a focuse page
+
+
 
 ### Python commands
 
