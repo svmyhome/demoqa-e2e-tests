@@ -1,43 +1,38 @@
 from selene import have, be, command
 from selene.support.shared import browser
 
+from demoqa_e2e_tests.models.pages import registration_form
+from demoqa_e2e_tests.models.pages.registration_form import wait_and_remove_ads
 from demoqa_e2e_tests.utils import get_path_for_file
-from tests.test_data import users
+from demoqa_e2e_tests.models.controls import dropdown
+from tests.test_data.users import yuri
+from demoqa_e2e_tests import (
+    models,
+)  # если в init прописать рути то можно собрать единую точку для вриложения
+
+# from demoqa_e2e_tests.models import pages as app # импорт страниц с синонимом app app.registration_form.add_hobbies()
 
 
-def wait_and_remove_ads():
-    ads = browser.all("#adplus-anchor")
-    '''ждет чтобы все отобразилась, одна реклама и если дожидается то удаляет иначе скипает'''
-    if ads.wait_until(have.size_greater_than_or_equal(1)):
-        browser.execute_script(
-            'document.querySelectorAll("#adplus-anchor").forEach(element => element.remove())'
-        )
-
-
-def test_fill_in_practice_form():
-    browser.open("/automation-practice-form")
-    browser.execute_script(
-        'document.querySelectorAll(".GoogleActiveViewElement").forEach(element => element.remove())'
-    )
-    wait_and_remove_ads()
+def test_registration_form():
+    registration_form.given_opened()
     browser.should(have.title("ToolsQA"))
     browser.element(".main-header").should(be.visible)
-    browser.element("#firstName").type(users.yuri.first_name)
-    browser.element("#lastName").type(users.yuri.last_name)
-    browser.element("#userEmail").type(users.yuri.user_email)
+    browser.element("#firstName").type(yuri.first_name)
+    browser.element("#lastName").type(yuri.last_name)
+    browser.element("#userEmail").type(yuri.user_email)
     browser.all('[for^=gender-radio]').by(
-        have.exact_text(users.yuri.gender.value)
+        have.exact_text(yuri.gender.value)
     ).first.click()
     '''
     OR
     browser.all('[id^=gender-radio]').by(have.value('Male')).first.click()
     '''
-    browser.element("#userNumber").type(users.yuri.mobile)
+    browser.element("#userNumber").type(yuri.mobile)
     browser.element("#dateOfBirthInput").click()
-    browser.element('.react-datepicker__year-select').send_keys(users.yuri.year)
-    browser.element('.react-datepicker__month-select').send_keys(users.yuri.month)
+    browser.element('.react-datepicker__year-select').send_keys(yuri.year)
+    browser.element('.react-datepicker__month-select').send_keys(yuri.month)
     browser.element(
-        f'.react-datepicker__day--0{users.yuri.day}'
+        f'.react-datepicker__day--0{yuri.day}'
         f':not(.react-datepicker__day--outside-month)'
     ).click()
     '''
@@ -47,34 +42,23 @@ def test_fill_in_practice_form():
     browser.element('[aria-label="Choose Friday, June 28th, 2019"]').click()
     '''
 
-    for subject in users.yuri.subjects:
-        browser.element("#subjectsInput").type(subject.value).press_enter()
+    registration_form.add_subjects(yuri.subjects)
+
     '''
     OR
     browser.element("#subjectsInput").type("history").press_enter().type(
         "Ch"
     ).press_enter()'''
-    for hobby in users.yuri.hobbies:
-        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
-            '..'
-        ).click()
+
+    registration_form.add_hobbies(yuri.hobbies)
+
     browser.element("#uploadPicture").send_keys(get_path_for_file('test.txt'))
-    browser.element("#currentAddress").type(users.yuri.currentAddress)
+    browser.element("#currentAddress").type(yuri.currentAddress)
     browser.element("#subjectsInput").perform(command.js.scroll_into_view)
-    browser.element("#state").click()
-    browser.all('[id^=react-select][id*=-option-]').by(
-        have.exact_text(users.yuri.state)
-    ).first.click()
-    browser.element("#city").click()
-    browser.all('[id^=react-select][id*=-option-]').by(
-        have.exact_text(users.yuri.city)
-    ).first.click()
-    '''
-    OR
-    browser.element("#react-select-3-input").type("Haryana").press_enter()
-    browser.element("#city").click()
-    browser.element("#react-select-4-input").type("Panipat").press_enter()
-    '''
+
+    registration_form.set_state(yuri.state)
+    registration_form.set_city(yuri.city)
+
     browser.element("#submit").perform(command.js.click)
     browser.element("#example-modal-sizes-title-lg").should(be.visible)
 
@@ -84,52 +68,56 @@ def test_fill_in_practice_form():
             rows = dialog.all('tbody tr')
             rows.by(have.text(row)).first.all('td')[1].should(have.exact_text(value))
 
-    print(f'{hobby.Sports.value}, {hobby.Music.value}')
     should_have_table(
         [
-            ('Student Name', f'{users.yuri.first_name} {users.yuri.last_name}'),
-            ('Student Email', users.yuri.user_email),
-            ('Gender', users.yuri.gender.value),
-            ('Mobile', users.yuri.mobile),
-            ('Date of Birth', f'{users.yuri.day} {users.yuri.month},{users.yuri.year}'),
-            ('Subjects', f'{subject.Maths.value}, {subject.History.value}'),
+            ('Student Name', f'{yuri.first_name} {yuri.last_name}'),
+            ('Student Email', yuri.user_email),
+            ('Gender', yuri.gender.value),
+            ('Mobile', yuri.mobile),
+            ('Date of Birth', f'{yuri.day} {yuri.month},{yuri.year}'),
+            (
+                'Subjects',
+                f'{yuri.subjects[0].value}, {yuri.subjects[1].value}',
+            ),
             ('Hobbies', 'Sports, Music'),
             ('Picture', 'test.txt'),
-            ('Address', users.yuri.currentAddress),
-            ('State and City', f'{users.yuri.state} {users.yuri.city}'),
+            ('Address', yuri.currentAddress),
+            ('State and City', f'{yuri.state} {yuri.city}'),
         ]
     )
 
-    '''выбираются все ячейки из таблицы с классом .table-responsive'''
-    # browser.all(".table-responsive td").should(
-    #     have.texts(
-    #         'Student Name',
-    #         'yuri Ivanov',
-    #         'Student Email',
-    #         'Ivanov@mail.ru',
-    #         'Gender',
-    #         'Male',
-    #         'Mobile',
-    #         '1234567890',
-    #         'Date of Birth',
-    #         '30 September,2015',
-    #         'Subjects',
-    #         'Maths, History',
-    #         'Hobbies',
-    #         'Sports, Music',
-    #         'Picture',
-    #         'test.txt',
-    #         'Address',
-    #         'chbsdhjcb cdsjbcjsdbc jcsdjcndncj',
-    #         'State and City',
-    #         'Uttar Pradesh Lucknow'
-    #     )
-    # )
+    '''
+    OR
+        browser.all(".table-responsive td").should(
+        have.texts(
+            'Student Name',
+            'yuri Ivanov',
+            'Student Email',
+            'Ivanov@mail.ru',
+            'Gender',
+            'Male',
+            'Mobile',
+            '1234567890',
+            'Date of Birth',
+            '30 September,2015',
+            'Subjects',
+            'Maths, History',
+            'Hobbies',
+            'Sports, Music',
+            'Picture',
+            'test.txt',
+            'Address',
+            'chbsdhjcb cdsjbcjsdbc jcsdjcndncj',
+            'State and City',
+            'Uttar Pradesh Lucknow'
+        )
+    )
+    '''
 
 
 def test_fill_in_web_tables():
     browser.open("/webtables")
-    wait_and_remove_ads()
+    registration_form.wait_and_remove_ads()
     browser.should(have.title("ToolsQA"))
     browser.element("#addNewRecordButton").click()
     browser.element("#registration-form-modal").should(be.visible)

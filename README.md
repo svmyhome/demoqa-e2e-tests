@@ -1,6 +1,6 @@
 # demoqa-e2e-tests
 
-### Keys pyCharm
+### Hot keys pyCharm
 Alt + shift + E  в режиме дебага выполнить одну строку
 
 ### Tips and Tricks
@@ -24,7 +24,7 @@ git init
 git rm --cached nameFile 
 
 
-## как назвать проекты в PyCharm
+### как назвать проекты в PyCharm
 название проекта-test
 например: demoqa-test 
 
@@ -36,3 +36,6 @@ browser.config.timeout = 4   # к каждой команде применяет
     browser.with_(timeout=6).element('.main-header').should(have.text('Text Box'))  # например можно так таймаут установить эмулируя медленный браузер
     browser.all('#userForm input, #userForm textarea').with_(timeout=3).should(have.size(4)) # например можно так таймаут установить эмулируя долгую загрузку элементов
  
+
+from demoqa_e2e_tests import models  # если в init прописать пути то можно собрать единую точку для вриложения
+from demoqa_e2e_tests.models import pages as app # импорт страниц с синонимом app app.registration_form.add_hobbies()
