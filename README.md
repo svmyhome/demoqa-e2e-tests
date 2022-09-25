@@ -14,6 +14,7 @@ or
 ### Python commands
 
 pytest --fixtures -- список всех используемых фикстур
+ pytest tests/ - запуск всех тестов в папке
 
 ### Git commands 
 

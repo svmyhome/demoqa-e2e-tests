@@ -1,1 +1,1 @@
-from . import registration_form
+from . import registration_form, webtables_fill
