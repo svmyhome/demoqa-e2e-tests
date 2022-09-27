@@ -15,6 +15,9 @@ or
 
 pytest --fixtures -- список всех используемых фикстур
 
+[pytest]
+addopts = --alluredir=allure-results --durations=10 -vv --clean-alluredir
+
 ### Git commands 
 
 ssh-keygen -t rsa  - создание ключевой пары для Ubuntu/MAc
@@ -39,3 +42,10 @@ browser.config.timeout = 4   # к каждой команде применяет
 
 from demoqa_e2e_tests import models  # если в init прописать пути то можно собрать единую точку для вриложения
 from demoqa_e2e_tests.models import pages as app # импорт страниц с синонимом app app.registration_form.add_hobbies()
+
+## Allure
+Windows
+    В pyCharm: установить [scoop](https://github.com/ScoopInstaller/Scoop#readme)
+    Перезагрузится: (Возможно просто закрыт консоли и pyCharm поможет)
+    установить в pyCharm: scoop install allure
+Linix
