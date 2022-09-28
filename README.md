@@ -48,4 +48,11 @@ Windows
     В pyCharm: установить [scoop](https://github.com/ScoopInstaller/Scoop#readme)
     Перезагрузится: (Возможно просто закрыт консоли и pyCharm поможет)
     установить в pyCharm: scoop install allure
-Linix
+Linux
+качаешь зип аллюра отсюда :  https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.19.0/    
+ зип :allure-commandline-2.19.0.zip   
+
+распаковываешь его в  /opt/
+sudo tar -zxvf allure-2.6.0.tgz -C /opt/   
+sudo ln -s /opt/allure-2.6.0/bin/allure /usr/bin/allure   (прописываешь символьную ссылку)
+allure --version  
