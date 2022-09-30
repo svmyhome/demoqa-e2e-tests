@@ -29,7 +29,7 @@ git rm --cached nameFile
 
 ### как назвать проекты в PyCharm
 название проекта-test
-например: demoqa-test 
+например: demoqa-test, demoqa-e2e-test 
 
 ## Selene
 should - любая проверка  -- should(have.tite('name')) or be
