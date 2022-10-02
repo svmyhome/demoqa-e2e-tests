@@ -27,6 +27,8 @@ ssh-keygen -t ed25519 -C "svmyhome@mail.ru" - windows
 git init
 git rm --cached nameFile 
 
+git checkout Lesson_7_HomeWork_PageObjects_Part_1 ./models/controls/   - перетащить в текущую ветку все файлы из каталога с другой ветки
+git checkout Lesson_7_HomeWork_PageObjects_Part_1 ./models/pages/webtables_fill.py - перетащить конкретный файл
 
 ### как назвать проекты в PyCharm
 название проекта-test
