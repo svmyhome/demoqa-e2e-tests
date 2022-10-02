@@ -12,9 +12,14 @@ or
 
 
 ### Python commands
+pytho3 -m venv .venv - создает виртуальное окружение через коммандную строку
+source .venv/bin/activate - активирует виртуальное окружение
 
+### pyTest
 pytest --fixtures -- список всех используемых фикстур
 pytest tests/  --alluredir=./tests/allure-results
+
+pytest . - запустит все тесты в каталоге
 
 [pytest]
 addopts = --alluredir=allure-results --durations=10 -vv --clean-alluredir
