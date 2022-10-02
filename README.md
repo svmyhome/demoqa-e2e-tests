@@ -14,6 +14,7 @@ or
 ### Python commands
 
 pytest --fixtures -- список всех используемых фикстур
+pytest tests/  --alluredir=./tests/allure-results
 
 [pytest]
 addopts = --alluredir=allure-results --durations=10 -vv --clean-alluredir
