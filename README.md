@@ -64,3 +64,5 @@ Linux
 sudo tar -zxvf allure-2.6.0.tgz -C /opt/   
 sudo ln -s /opt/allure-2.6.0/bin/allure /usr/bin/allure   (прописываешь символьную ссылку)
 allure --version  
+
+#
