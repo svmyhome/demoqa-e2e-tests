@@ -1,10 +1,14 @@
 import json
 
+
 import allure
 from allure import attachment_type
 from allure_commons.types import Severity
 from selene import have, be, command
 from selene.support.shared import browser
+from selenium import webdriver
+
+from selenium.webdriver.chrome.options import Options
 
 from demoqa_e2e_tests.models.pages import registration_form
 from demoqa_e2e_tests.utils import get_path_for_file
@@ -13,6 +17,21 @@ from tests.test_data.users import yuri
 # TODO загрузить картинку
 # TODO сделать скриншот
 def test_registration_form():
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "100.0",
+        "selenoid:options": {"enableVNC": True, "enableVideo": False},
+    }
+
+    options.capabilities.update(selenoid_capabilities)
+    driver = webdriver.Remote(
+        command_executor="https://user1:1234@selenoid.autotests.cloud//wd/hub",
+        options=options,
+    )
+
+    browser.config.driver = driver
+
     allure.dynamic.tag("web")
     allure.dynamic.severity(Severity.BLOCKER)
     allure.dynamic.label("owner", "Sarychev")
