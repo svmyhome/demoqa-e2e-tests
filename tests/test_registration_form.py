@@ -10,6 +10,7 @@ from selenium import webdriver
 
 from selenium.webdriver.chrome.options import Options
 
+from demoqa_e2e_tests import attach
 from demoqa_e2e_tests.models.pages import registration_form
 from demoqa_e2e_tests.utils import get_path_for_file
 from tests.test_data.users import yuri
@@ -21,7 +22,7 @@ def test_registration_form():
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": "100.0",
-        "selenoid:options": {"enableVNC": True, "enableVideo": False},
+        "selenoid:options": {"enableVNC": True, "enableVideo": True},
     }
 
     options.capabilities.update(selenoid_capabilities)
@@ -121,3 +122,4 @@ def test_registration_form():
                 ('State and City', f'{yuri.state} {yuri.city}'),
             ]
         )
+    attach.add_video(browser)
