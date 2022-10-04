@@ -5,8 +5,8 @@ from selene import have, command
 from selene.support.shared import browser
 
 from demoqa_e2e_tests.models import controls
-from demoqa_e2e_tests.models.controls import modal, table
-from demoqa_e2e_tests.utils import get_path_for_file
+from demoqa_e2e_tests.models.controls import table
+from utils.utils import get_path_for_file
 from tests.test_data.users import Subject, Hobby
 
 

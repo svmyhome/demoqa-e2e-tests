@@ -2,7 +2,7 @@ import allure
 from allure_commons.types import Severity
 from allure import attachment_type
 
-from demoqa_e2e_tests import utils
+from utils import utils
 
 
 @allure.tag("allure")

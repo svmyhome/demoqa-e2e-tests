@@ -2,7 +2,7 @@ import allure
 from selene import by, be
 from selene.support.shared import browser
 from allure import attachment_type
-from demoqa_e2e_tests import utils
+from utils import utils
 
 
 @allure.step('Открыт gihub')

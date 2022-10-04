@@ -10,9 +10,9 @@ from selenium import webdriver
 
 from selenium.webdriver.chrome.options import Options
 
-from demoqa_e2e_tests import attach
+from utils import attach
 from demoqa_e2e_tests.models.pages import registration_form
-from demoqa_e2e_tests.utils import get_path_for_file
+from utils.utils import get_path_for_file
 from tests.test_data.users import yuri
 
 # TODO загрузить картинку
@@ -123,3 +123,6 @@ def test_registration_form():
             ]
         )
     attach.add_video(browser)
+    attach.add_logs(browser)
+    attach.add_html(browser)
+    attach.add_screenshot(browser)
