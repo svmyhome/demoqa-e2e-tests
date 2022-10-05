@@ -4,7 +4,7 @@ import pytest
 from selene.support.shared import browser
 
 
-@pytest.fixture(scope='function', autouse=True)
+@pytest.fixture(scope='function')
 def browser_management():
     browser.config.timeout = 5
     # browser.config.wait_for_no_overlap_found_by_js = True  # Ждет скрытия оверлеев при открытии окна. Не работает с невидимыми полями ввода например при загрузке файла через input
