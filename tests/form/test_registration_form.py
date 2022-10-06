@@ -14,7 +14,7 @@ from utils.utils import get_path_for_file
 from tests.test_data.users import yuri
 
 
-def test_registration_form(setup_chrom):
+def test_registration_form():
 
     allure.dynamic.tag('web')
     allure.dynamic.severity(Severity.BLOCKER)
