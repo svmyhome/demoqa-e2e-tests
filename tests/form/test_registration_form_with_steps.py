@@ -17,7 +17,7 @@ from tests.test_data.users import yuri
 @allure.feature("Это фича")
 @allure.story("Это история")
 @allure.link("https://github.com", name="gitflow")
-def test_registration_form():
+def test_registration_form(setup_chrom):
 
     registration_form.given_opened()
 
