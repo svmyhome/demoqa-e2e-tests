@@ -22,7 +22,7 @@ def test_registration_form():
     allure.dynamic.feature('Это фича 3')
     allure.dynamic.link('https://Jira.com', name='cjsdcnjsdnc')
     with allure.step('Открываем страницу регистрации'):
-        browser.open('https://demoqa.com/automation-practice-form')
+        browser.open('/automation-practice-form')
         wait_and_remove_ads()
         allure.attach('Text content', name='Text', attachment_type=attachment_type.TEXT)
 

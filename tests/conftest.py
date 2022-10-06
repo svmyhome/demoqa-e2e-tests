@@ -68,23 +68,30 @@ else:
 
 
 @pytest.fixture(scope='function', autouse=True)
-def setup_chrom():
-    options = Options()
-    selenoid_capabilities = {
-        'browserName': 'chrome',
-        'browserVersion': '100.0',
-        'selenoid:options': {'enableVNC': True, 'enableVideo': True},
-    }
+def browser_management():
 
-    options.capabilities.update(selenoid_capabilities)
-    driver = webdriver.Remote(
-        command_executor='https://user1:1234@selenoid.autotests.cloud//wd/hub',
-        options=options,
-    )
-    browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
+    browser_name = os.getenv('selene_browser_name', 'chrome')
     browser.config.window_width = 1900
     browser.config.window_height = 1300
-    browser.config.driver = driver
+    browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
+
+    if browser_name == 'local':
+        browser.config.browser_name = 'chrome'
+    else:
+        options = Options()
+        selenoid_capabilities = {
+            'browserName': browser_name,
+            'browserVersion': '100.0',
+            'selenoid:options': {'enableVNC': True, 'enableVideo': True},
+        }
+
+        options.capabilities.update(selenoid_capabilities)
+        driver = webdriver.Remote(
+            command_executor='https://user1:1234@selenoid.autotests.cloud//wd/hub',
+            options=options,
+        )
+        browser.config.timeout = 5
+        browser.config.driver = driver
 
     yield
 
