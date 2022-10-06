@@ -67,21 +67,31 @@ else:
 '''
 
 
-@pytest.fixture(scope='function', autouse=True)
-def browser_management():
+def pytest_addoption(parser):
+    parser.addoption('--browser_version', default='100.0')
+    '''
+    pytest ./form/test_registration_form.py --browser_version=99
+    '''
 
+
+@pytest.fixture(scope='function', autouse=True)
+def browser_management(request):
+    browser_version = request.config.getoption('--browser_version')
     browser_name = os.getenv('selene_browser_name', 'chrome')
     browser.config.window_width = 1900
     browser.config.window_height = 1300
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
+    '''
+    export selene_browser_name='local'
 
+    '''
     if browser_name == 'local':
         browser.config.browser_name = 'chrome'
     else:
         options = Options()
         selenoid_capabilities = {
             'browserName': browser_name,
-            'browserVersion': '100.0',
+            'browserVersion': browser_version,
             'selenoid:options': {'enableVNC': True, 'enableVideo': True},
         }
 
@@ -99,3 +109,4 @@ def browser_management():
     attach_evidence.add_logs(browser)
     attach_evidence.add_html(browser)
     attach_evidence.add_screenshot(browser)
+    browser.quit()
