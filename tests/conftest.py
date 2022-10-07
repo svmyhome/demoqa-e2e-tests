@@ -1,12 +1,11 @@
 import os
-
+from dotenv import load_dotenv
 import pytest
 from selene.support.shared import browser
 from selenium import webdriver
 
 from selenium.webdriver.chrome.options import Options
 
-import utils
 from utils import attach_evidence
 
 
@@ -76,6 +75,9 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management(request):
+    load_dotenv()
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
     browser_version = request.config.getoption('--browser_version')
     browser_name = os.getenv('selene_browser_name', 'chrome')
     browser.config.window_width = 1900
@@ -97,7 +99,7 @@ def browser_management(request):
 
         options.capabilities.update(selenoid_capabilities)
         driver = webdriver.Remote(
-            command_executor='https://user1:1234@selenoid.autotests.cloud//wd/hub',
+            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud//wd/hub',
             options=options,
         )
         browser.config.timeout = 5
