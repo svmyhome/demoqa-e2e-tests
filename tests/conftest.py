@@ -92,7 +92,7 @@ def browser_management(request):
     else:
         options = Options()
         selenoid_capabilities = {
-            'browserName': browser_name,
+            'browserName': 'chrome',
             'browserVersion': browser_version,
             'selenoid:options': {'enableVNC': True, 'enableVideo': True},
         }
