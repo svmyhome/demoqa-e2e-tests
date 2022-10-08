@@ -1,15 +1,13 @@
 import json
 
-
 import allure
 from allure import attachment_type
 from allure_commons.types import Severity
 from selene import have, be, command
 from selene.support.shared import browser
 
-
-from demoqa_e2e_tests.models.pages.registration_form import wait_and_remove_ads
 from demoqa_e2e_tests.models.pages import registration_form
+from demoqa_e2e_tests.models.pages.registration_form import wait_and_remove_ads
 from utils.utils import get_path_for_file
 from tests.test_data.users import yuri
 

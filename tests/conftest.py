@@ -1,12 +1,11 @@
 import os
-
+from dotenv import load_dotenv
 import pytest
 from selene.support.shared import browser
 from selenium import webdriver
 
 from selenium.webdriver.chrome.options import Options
 
-import utils
 from utils import attach_evidence
 
 
@@ -67,27 +66,40 @@ else:
 '''
 
 
-@pytest.fixture(scope='function', autouse=True)
-def browser_management():
+def pytest_addoption(parser):
+    parser.addoption('--browser_version', default='100.0')
+    '''
+    pytest ./form/test_registration_form.py --browser_version=99
+    '''
 
+
+@pytest.fixture(scope='function', autouse=True)
+def browser_management(request):
+    load_dotenv()
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
+    browser_version = request.config.getoption('--browser_version')
     browser_name = os.getenv('selene_browser_name', 'chrome')
     browser.config.window_width = 1900
     browser.config.window_height = 1300
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
+    '''
+    export selene_browser_name='local'
 
+    '''
     if browser_name == 'local':
         browser.config.browser_name = 'chrome'
     else:
         options = Options()
         selenoid_capabilities = {
-            'browserName': browser_name,
-            'browserVersion': '100.0',
+            'browserName': 'chrome',
+            'browserVersion': browser_version,
             'selenoid:options': {'enableVNC': True, 'enableVideo': True},
         }
 
         options.capabilities.update(selenoid_capabilities)
         driver = webdriver.Remote(
-            command_executor='https://user1:1234@selenoid.autotests.cloud//wd/hub',
+            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud//wd/hub',
             options=options,
         )
         browser.config.timeout = 5
@@ -99,3 +111,4 @@ def browser_management():
     attach_evidence.add_logs(browser)
     attach_evidence.add_html(browser)
     attach_evidence.add_screenshot(browser)
+    browser.quit()
