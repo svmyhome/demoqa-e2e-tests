@@ -13,7 +13,7 @@ or
 
 
 ### Python commands
-pytho3 -m venv .venv - создает виртуальное окружение через коммандную строку
+python3 -m venv .venv - создает виртуальное окружение через коммандную строку
 source .venv/bin/activate - активирует виртуальное окружение
 
 ### pyTest
@@ -35,6 +35,12 @@ git rm --cached nameFile
 
 git checkout Lesson_7_HomeWork_PageObjects_Part_1 ./models/controls/   - перетащить в текущую ветку все файлы из каталога с другой ветки
 git checkout Lesson_7_HomeWork_PageObjects_Part_1 ./models/pages/webtables_fill.py - перетащить конкретный файл
+
+вывести из под контроля файл
+git rm --cached <file>
+вывести из под контроля папку
+git rm -r --cached path_to_your_folder/
+
 
 ### как назвать проекты в PyCharm
 название проекта-test
@@ -66,4 +72,6 @@ sudo tar -zxvf allure-2.6.0.tgz -C /opt/
 sudo ln -s /opt/allure-2.6.0/bin/allure /usr/bin/allure   (прописываешь символьную ссылку)
 allure --version  
 
-#
+## Chat boot
+
+берет данные для генерации из allure-report/widgets/summary.json
