@@ -1,33 +1,19 @@
 from typing import Tuple
 
 import allure
-from selene import have, command
+from selene import have
 from selene.support.shared import browser
 
 from demoqa_e2e_tests.models import controls
 from demoqa_e2e_tests.models.controls import table
-from utils.utils import get_path_for_file
+from utils.utils import get_path_for_file, wait_and_remove_ads
 from tests.test_data.users import Subject, Hobby
 
 
 @allure.step("Открываем страницу с формой")
 def given_opened():
     browser.open("/automation-practice-form")
-    wait_and_remove_ads()
-
-
-def wait_and_remove_ads():
-    ads = browser.all("#adplus-anchor")
-    '''ждет чтобы все отобразилась, одна реклама и если дожидается то удаляет иначе скипает'''
-    if ads.with_(timeout=10).wait_until(have.size_greater_than_or_equal(1)):
-        ads.perform(command.js.remove)
-        '''
-        OR
-        browser.execute_script(
-        'document.querySelectorAll("#adplus-anchor").forEach(element => element.remove())'
-        )
-        
-        '''
+    wait_and_remove_ads('#adplus-anchor')
 
 
 @allure.step("Выбираем предметы")

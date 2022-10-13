@@ -1,17 +1,11 @@
-from selene import have, command
 from selene.support.shared import browser
+
+from utils.utils import wait_and_remove_ads
 
 
 def given_opened():
     browser.open("/webtables")
-    wait_and_remove_ads()
-
-
-def wait_and_remove_ads():
-    ads = browser.all("#adplus-anchor")
-    '''ждет чтобы все отобразилась, одна реклама и если дожидается то удаляет иначе скипает'''
-    if ads.with_(timeout=10).wait_until(have.size_greater_than_or_equal(1)):
-        ads.perform(command.js.remove)
+    wait_and_remove_ads('#adplus-anchor')
 
 
 def add_new_record():

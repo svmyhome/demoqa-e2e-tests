@@ -7,8 +7,7 @@ from selene import have, be, command
 from selene.support.shared import browser
 
 from demoqa_e2e_tests.models.pages import registration_form
-from demoqa_e2e_tests.models.pages.registration_form import wait_and_remove_ads
-from utils.utils import get_path_for_file
+from utils.utils import get_path_for_file, wait_and_remove_ads
 from tests.test_data.users import yuri
 
 
@@ -21,7 +20,7 @@ def test_registration_form():
     allure.dynamic.link('https://Jira.com', name='cjsdcnjsdnc')
     with allure.step('Открываем страницу регистрации'):
         browser.open('/automation-practice-form')
-        wait_and_remove_ads()
+        wait_and_remove_ads('#adplus-anchor')
         allure.attach('Text content', name='Text', attachment_type=attachment_type.TEXT)
 
     with allure.step('Проверяем что открылась та страница'):
