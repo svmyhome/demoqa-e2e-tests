@@ -1,13 +1,12 @@
 from typing import Tuple
 
 import allure
-from selene import have
 from selene.support.shared import browser
 
 from demoqa_e2e_tests.models import controls
 from demoqa_e2e_tests.models.controls import table
 from utils.utils import get_path_for_file, wait_and_remove_ads
-from tests.test_data.users import Subject, Hobby
+from tests.test_data.users import Subject
 
 
 @allure.step("Открываем страницу с формой")
@@ -20,14 +19,6 @@ def given_opened():
 def add_subjects(values: Tuple[Subject]):
     for subject in values:
         browser.element("#subjectsInput").type(subject.value).press_enter()
-
-
-@allure.step("Выбираем хобби")
-def add_hobbies(values: Tuple[Hobby]):
-    for hobby in values:
-        browser.all('[id^=hobbies]').by(have.value(hobby.value)).first.element(
-            '..'
-        ).click()
 
 
 @allure.step("Выбираем штат")
@@ -60,61 +51,10 @@ def type_user_phone_number(value: str):
     browser.element("#userNumber").type(value)
 
 
-@allure.step("Выбор пола")
-def set_gender(value: str):
-    browser.all('[for^=gender-radio]').by(have.exact_text(value)).first.click()
-
-
-def set_year(year: str):
-    browser.element('.react-datepicker__year-select').send_keys(year)
-
-
-def set_month(month: str):
-    browser.element('.react-datepicker__month-select').send_keys(month)
-
-
-def set_day(day: str):
-    browser.element(
-        f'.react-datepicker__day--0{day}' f':not(.react-datepicker__day--outside-month)'
-    ).click()
-
-
-@allure.step("Выбор даты")
-def set_date_Birth(year: str, month: str, day: str):
-    browser.element("#dateOfBirthInput").click()
-    set_year(year)
-    set_month(month)
-    set_day(day)
-
-
 '''
 OR 
 alternative method set data
 '''
-
-
-def alternative_set_year(year: str):
-    browser.element(f'.react-datepicker__year-select [value="{year}"]').click()
-
-
-def alternative_set_month(month: str):
-    browser.element('.react-datepicker__month-select').all('option').by(
-        have.exact_text(month)
-    ).first.click()
-
-
-def alternative_set_day(day: str):
-    browser.element(
-        f'.react-datepicker__day--0{day}' f':not(.react-datepicker__day--outside-month)'
-    ).click()
-
-
-@allure.step("Выбор даты")
-def alternative_set_date_Birth(year: str, month: str, day: str):
-    browser.element('#dateOfBirthInput').click()
-    alternative_set_year(year)
-    alternative_set_month(month)
-    alternative_set_day(day)
 
 
 @allure.step("Выбираем файл")

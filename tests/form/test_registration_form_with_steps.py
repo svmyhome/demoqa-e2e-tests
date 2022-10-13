@@ -3,6 +3,9 @@ from allure_commons.types import Severity
 from selene import have, be, command
 from selene.support.shared import browser
 
+import demoqa_e2e_tests.models.controls.checkbox
+import demoqa_e2e_tests.models.controls.datepicker
+import demoqa_e2e_tests.models.controls.radio_button
 from demoqa_e2e_tests.models.pages import registration_form
 from tests.test_data.users import yuri
 
@@ -28,16 +31,22 @@ def test_registration_form_steps():
     registration_form.type_last_name(yuri.last_name)
 
     registration_form.type_user_email(yuri.user_email)
-
-    registration_form.set_gender(yuri.gender.value)
+    with allure.step('Выбираем пол'):
+        demoqa_e2e_tests.models.controls.radio_button.set_option(
+            '[for^=gender-radio]', yuri.gender.value
+        )
 
     registration_form.type_user_phone_number(yuri.mobile)
 
-    registration_form.set_date_Birth(yuri.year, yuri.month, yuri.day)
+    demoqa_e2e_tests.models.controls.datepicker.set_date(
+        yuri.year, yuri.month, yuri.day
+    )
 
     registration_form.add_subjects(yuri.subjects)
-
-    registration_form.add_hobbies(yuri.hobbies)
+    with allure.step('Выбираем хобби'):
+        demoqa_e2e_tests.models.controls.checkbox.add_option(
+            '[id^=hobbies]', yuri.hobbies
+        )
 
     registration_form.add_pictures(yuri.picture)
 

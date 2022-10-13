@@ -6,6 +6,7 @@ from allure_commons.types import Severity
 from selene import have, be, command
 from selene.support.shared import browser
 
+import demoqa_e2e_tests.models.controls.checkbox
 from demoqa_e2e_tests.models.pages import registration_form
 from utils.utils import get_path_for_file, wait_and_remove_ads
 from tests.test_data.users import yuri
@@ -60,7 +61,9 @@ def test_registration_form():
     with allure.step('Выбираем предметы'):
         registration_form.add_subjects(yuri.subjects)
     with allure.step('Выбираем хобби'):
-        registration_form.add_hobbies(yuri.hobbies)
+        demoqa_e2e_tests.models.controls.checkbox.add_option(
+            '[id^=hobbies]', yuri.hobbies
+        )
 
     with allure.step('Загружаем картинку'):
         browser.element('#uploadPicture').send_keys(get_path_for_file('test.txt'))
