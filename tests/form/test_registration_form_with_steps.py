@@ -6,6 +6,7 @@ from selene.support.shared import browser
 import demoqa_e2e_tests.models.controls.checkbox
 import demoqa_e2e_tests.models.controls.datepicker
 import demoqa_e2e_tests.models.controls.radio_button
+from demoqa_e2e_tests.models.controls import datepicker
 from demoqa_e2e_tests.models.pages import registration_form
 from tests.test_data.users import yuri
 
@@ -38,9 +39,7 @@ def test_registration_form_steps():
 
     registration_form.type_user_phone_number(yuri.mobile)
 
-    demoqa_e2e_tests.models.controls.datepicker.set_date(
-        yuri.year, yuri.month, yuri.day
-    )
+    datepicker.set_date('#dateOfBirthInput', yuri.year, yuri.month, yuri.day)
 
     registration_form.add_subjects(yuri.subjects)
     with allure.step('Выбираем хобби'):

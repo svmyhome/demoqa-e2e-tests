@@ -1,4 +1,5 @@
 import allure
+import selene
 from selene import have
 from selene.support.shared import browser
 
@@ -18,7 +19,7 @@ def set_day(day: str):
 
 
 @allure.step("Выбор даты")
-def set_date(year: str, month: str, day: str):
+def set_date(element: selene.Element, year: str, month: str, day: str):
     browser.element("#dateOfBirthInput").click()
     set_year(year)
     set_month(month)
