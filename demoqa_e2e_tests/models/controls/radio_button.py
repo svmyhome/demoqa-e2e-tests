@@ -1,8 +1,11 @@
+from typing import Tuple
+
 import allure
 import selene
 from selene import have
 from selene.support.shared import browser
 
 
-def set_option(element: selene.Element, value: str):
-    browser.all(element).by(have.exact_text(value)).first.click()
+class SetOption:
+    def set_option(self):
+        browser.all('[for^=gender-radio]').by(have.exact_text('Male')).first.click()
