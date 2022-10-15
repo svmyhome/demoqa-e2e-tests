@@ -7,7 +7,7 @@ from demoqa_e2e_tests.models import controls
 from demoqa_e2e_tests.models.controls import table
 from demoqa_e2e_tests.models.controls.datepicker import DatePicker
 from utils.utils import get_path_for_file, wait_and_remove_ads
-from tests.test_data.users import Subject
+from tests.test_data.users import Subject, yuri
 
 
 class RegistrationForm:
@@ -50,6 +50,11 @@ class RegistrationForm:
     def type_user_email(self, value: str):
         browser.element("#userEmail").type(value)
         return self
+
+    @allure.step('Выбираем день рождения')
+    def set_date_Birth(self, year: str, month: str, day: str):
+        birthday = DatePicker(browser.element('#dateOfBirthInput'))
+        birthday.set_date(year, month, day)
 
     @allure.step("Вводим телефон")
     def type_user_phone_number(self, value: str):

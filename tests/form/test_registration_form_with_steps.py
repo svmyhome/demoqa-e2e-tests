@@ -36,8 +36,9 @@ def test_registration_form_steps():
         radio_button.set_option('[for^=gender-radio]', yuri.gender.value)
 
     with allure.step('Выбираем день рождения'):
-        birthday = DatePicker(browser.element('#dateOfBirthInput'))
-        birthday.set_date(yuri.year, yuri.month, yuri.day)
+        # birthday = DatePicker(browser.element('#dateOfBirthInput'))
+        # birthday.set_date(yuri.year, yuri.month, yuri.day)
+        app.registration_form.set_date_Birth(yuri.year, yuri.month, yuri.day)
 
     app.registration_form.add_subjects(yuri.subjects)
     with allure.step('Выбираем хобби'):
