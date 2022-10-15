@@ -6,6 +6,7 @@ from selene.support.shared import browser
 
 from demoqa_e2e_tests.models import app
 from demoqa_e2e_tests.models.controls import radio_button, checkbox
+from demoqa_e2e_tests.models.controls.checkbox import Add_Option
 from demoqa_e2e_tests.models.controls.radio_button import SetOption
 from tests.test_data.users import yuri
 
@@ -34,7 +35,8 @@ def test_registration_form_steps():
         yuri.subjects
     )
     with allure.step('Выбираем хобби'):
-        checkbox.add_option('[id^=hobbies]', yuri.hobbies)
+        choise_hobbies = Add_Option(browser.all('[id^=hobbies]'))
+        choise_hobbies.add_option(yuri.hobbies)
 
     app.registration_form.add_pictures(yuri.picture).type_current_address(
         yuri.currentAddress
@@ -44,11 +46,7 @@ def test_registration_form_steps():
         yuri.city
     ).click_submit_button(
         command.js.click
-    )
-
-    browser.element("#example-modal-sizes-title-lg").should(be.visible)
-
-    app.registration_form.should_have_submitted(
+    ).should_have_submitted(
         [
             ('Student Name', f'{yuri.first_name} {yuri.last_name}'),
             ('Student Email', yuri.user_email),

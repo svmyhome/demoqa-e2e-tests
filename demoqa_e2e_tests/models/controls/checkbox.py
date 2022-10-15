@@ -8,7 +8,11 @@ from selene.support.shared import browser
 from tests.test_data.users import Hobby
 
 
-@allure.step("Выбираем хобби")
-def add_option(element: selene.Element, values: Tuple[Hobby]):
-    for hobby in values:
-        browser.all(element).by(have.value(hobby.value)).first.element('..').click()
+class Add_Option:
+    def __init__(self, elements: selene.Collection):
+        self.elements = elements
+
+    @allure.step("Выбираем хобби")
+    def add_option(self, values: Tuple[Hobby]):
+        for hobby in values:
+            self.elements.by(have.value(hobby.value)).first.element('..').click()
