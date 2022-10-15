@@ -20,7 +20,7 @@ from tests.test_data.users import yuri
 @allure.epic("Это епик")
 @allure.feature("Это фича")
 @allure.story("Это история")
-@allure.link("https://github.com", name="gitflow")
+@allure.link("https://github.com", name="TASK-1")
 def test_registration_form_steps():
 
     app.registration_form.given_opened().type_first_name(
@@ -33,14 +33,15 @@ def test_registration_form_steps():
         yuri.year, yuri.month, yuri.day
     ).add_subjects(
         yuri.subjects
-    )
-    with allure.step('Выбираем хобби'):
-        choise_hobbies = Add_Option(browser.all('[id^=hobbies]'))
-        choise_hobbies.add_option(yuri.hobbies)
-
-    app.registration_form.add_pictures(yuri.picture).type_current_address(
+    ).add_hobbies(
+        yuri.hobbies
+    ).add_pictures(
+        yuri.picture
+    ).type_current_address(
         yuri.currentAddress
-    ).scroll_to_subject_input(command.js.scroll_into_view).set_state(
+    ).scroll_to_subject_input(
+        command.js.scroll_into_view
+    ).set_state(
         yuri.state
     ).set_city(
         yuri.city

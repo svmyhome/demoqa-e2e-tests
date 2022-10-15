@@ -5,6 +5,7 @@ from selene.support.shared import browser
 
 from demoqa_e2e_tests.models import controls
 from demoqa_e2e_tests.models.controls import table
+from demoqa_e2e_tests.models.controls.checkbox import Add_Option
 from demoqa_e2e_tests.models.controls.datepicker import DatePicker
 from demoqa_e2e_tests.models.controls.radio_button import SetOption
 from utils.utils import get_path_for_file, wait_and_remove_ads
@@ -25,6 +26,12 @@ class RegistrationForm:
     def add_subjects(self, values: Tuple[Subject]):
         for subject in values:
             browser.element("#subjectsInput").type(subject.value).press_enter()
+        return self
+
+    @allure.step("Выбираем Хобби")
+    def add_hobbies(self, values: Tuple[Subject]):
+        choise_hobbies = Add_Option(browser.all('[id^=hobbies]'))
+        choise_hobbies.add_option(values)
         return self
 
     @allure.step("Выбираем штат")

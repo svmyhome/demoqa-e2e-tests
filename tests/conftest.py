@@ -69,7 +69,7 @@ else:
 def pytest_addoption(parser):
     parser.addoption('--browser_version', default='100.0')
     '''
-    pytest ./form/test_registration_form.py --browser_version=99
+    pytest ./form/name_file.py --browser_version=99
     '''
 
 
