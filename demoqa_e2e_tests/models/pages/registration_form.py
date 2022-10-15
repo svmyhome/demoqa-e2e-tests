@@ -6,6 +6,7 @@ from selene.support.shared import browser
 from demoqa_e2e_tests.models import controls
 from demoqa_e2e_tests.models.controls import table
 from demoqa_e2e_tests.models.controls.datepicker import DatePicker
+from demoqa_e2e_tests.models.controls.radio_button import SetOption
 from utils.utils import get_path_for_file, wait_and_remove_ads
 from tests.test_data.users import Subject, yuri
 
@@ -49,6 +50,12 @@ class RegistrationForm:
     @allure.step("Вводим почту")
     def type_user_email(self, value: str):
         browser.element("#userEmail").type(value)
+        return self
+
+    @allure.step("Выбираем пол")
+    def set_gender(self, value: str):
+        set_gender = SetOption(browser.all('[for^=gender-radio]'))
+        set_gender.set_option(value)
         return self
 
     @allure.step('Выбираем день рождения')

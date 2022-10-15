@@ -24,16 +24,13 @@ def test_registration_form_steps():
 
     app.registration_form.given_opened().type_first_name(
         yuri.first_name
-    ).type_last_name(yuri.last_name).type_user_email(
-        yuri.user_email
+    ).type_last_name(yuri.last_name).type_user_email(yuri.user_email).set_gender(
+        yuri.gender.value
     ).type_user_phone_number(
         yuri.mobile
-    )
-    with allure.step('Выбираем пол'):
-        set_gender = SetOption()
-        set_gender.set_option()
-
-    app.registration_form.set_date_Birth(yuri.year, yuri.month, yuri.day).add_subjects(
+    ).set_date_Birth(
+        yuri.year, yuri.month, yuri.day
+    ).add_subjects(
         yuri.subjects
     )
     with allure.step('Выбираем хобби'):
