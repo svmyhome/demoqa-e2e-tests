@@ -56,4 +56,4 @@ class User:
     picture: str = 'test.txt'
 
 
-yuri = User(first_name='yuri', gender=Gender.Other)
+yuri = User(first_name='yuri', gender=Gender.Male)
