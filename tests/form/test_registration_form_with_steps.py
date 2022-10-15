@@ -33,9 +33,9 @@ def test_registration_form_steps():
         set_gender = SetOption()
         set_gender.set_option()
 
-    app.registration_form.set_date_Birth(yuri.year, yuri.month, yuri.day)
-
-    app.registration_form.add_subjects(yuri.subjects)
+    app.registration_form.set_date_Birth(yuri.year, yuri.month, yuri.day).add_subjects(
+        yuri.subjects
+    )
     with allure.step('Выбираем хобби'):
         checkbox.add_option('[id^=hobbies]', yuri.hobbies)
 

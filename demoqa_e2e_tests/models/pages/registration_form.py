@@ -55,6 +55,7 @@ class RegistrationForm:
     def set_date_Birth(self, year: str, month: str, day: str):
         birthday = DatePicker(browser.element('#dateOfBirthInput'))
         birthday.set_date(year, month, day)
+        return self
 
     @allure.step("Вводим телефон")
     def type_user_phone_number(self, value: str):
