@@ -1,6 +1,7 @@
 import json
 
 import allure
+import pytest
 from allure import attachment_type
 from allure_commons.types import Severity
 from selene import have, be, command
@@ -12,6 +13,7 @@ from utils.utils import get_path_for_file
 from tests.test_data.users import yuri
 
 
+@pytest.mark.slowtest
 def test_registration_form():
 
     allure.dynamic.tag('web')

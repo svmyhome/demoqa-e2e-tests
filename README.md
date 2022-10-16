@@ -24,6 +24,21 @@ pytest . - запустит все тесты в каталоге
 
 [pytest]
 addopts = --alluredir=allure-results --durations=10 -vv --clean-alluredir
+pytest --co -k "test_pass" -  запуск тестов с определенным названием
+ pytest --co -k "test_pass or test_allure"
+pytest --markers  посмотреть всем етки
+pytest --co -m fasttest - запуск тегов с меткой
+pytest --co -m "not slowtest" запуск всех кроме немедленных
+
+pytest --fixtures  -  список всех фикстур
+pytest --setup-plan - последовательность выполнения фикстур
+
+pytest -v --durations=5 .  5 самых медленных тестов
+
+pip install pytest-rerunfailures   - библиотека для запуска упавших тетсов несколько раз
+
+itertools.parwais
+
 
 ### Git commands 
 

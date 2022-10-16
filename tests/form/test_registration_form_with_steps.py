@@ -1,4 +1,5 @@
 import allure
+import pytest
 from allure_commons.types import Severity
 from selene import have, be, command
 from selene.support.shared import browser
@@ -10,6 +11,7 @@ from tests.test_data.users import yuri
 # from demoqa_e2e_tests.models import pages as app # импорт страниц с синонимом app app.registration_form.add_hobbies()
 
 
+@pytest.mark.slowtest
 @allure.tag("web")
 @allure.severity(Severity.CRITICAL)
 @allure.label("owner", "Sarychev Vladimir")

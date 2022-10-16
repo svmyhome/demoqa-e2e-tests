@@ -75,6 +75,9 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management(request):
+    '''
+    Эта фикстура позволяет настроить браузер и выполнить либо на селеноиде лило локально
+    '''
     load_dotenv()
     login = os.getenv('LOGIN')
     password = os.getenv('PASSWORD')
