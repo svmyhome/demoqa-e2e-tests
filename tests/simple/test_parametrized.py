@@ -28,3 +28,29 @@ def test_parametrized_2(browser, test_user):
 )
 def test_parametrized_3(browser, test_user):
     pass
+
+
+@pytest.mark.parametrize(
+    'browser',
+    [
+        pytest.param('Firefox', marks=[pytest.mark.skip('Firefox test broken')]),
+        pytest.param('Chrome', id='This is test Chrome'),
+    ],
+)
+@pytest.mark.parametrize(
+    'test_user',
+    [100, 200],
+    ids=['Description by first tuple', 'Description by second tuple'],
+)
+def test_parametrized_3(browser, test_user):
+    pass
+
+
+@pytest.fixture(params=['Chrome', 'Firefox'])
+def browser(request):
+    return request.param
+
+
+def test_browser(browser):
+    print(f'++++++++++++++++++++++{browser}')
+    pass
