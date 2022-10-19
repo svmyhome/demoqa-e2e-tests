@@ -1,1 +1,1 @@
-from . import form, gihub, simple, tables
+from . import github_sign_in
