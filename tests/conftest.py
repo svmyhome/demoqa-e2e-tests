@@ -67,7 +67,7 @@ else:
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser_version', default='100.0')
+    parser.addoption('--browser_version', default='105.0')
     '''
     pytest ./form/test_registration_form.py --browser_version=99
     '''
@@ -99,7 +99,7 @@ def browser_management(request):
 
         options.capabilities.update(selenoid_capabilities)
         driver = webdriver.Remote(
-            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud//wd/hub',
+            command_executor=f'http://127.0.0.1:4444/wd/hub',
             options=options,
         )
         browser.config.timeout = 5
