@@ -80,8 +80,8 @@ def browser_management(request):
     password = os.getenv('PASSWORD')
     browser_version = request.config.getoption('--browser_version')
     browser_name = os.getenv('selene_browser_name', 'chrome')
-    browser.config.window_width = 1900
-    browser.config.window_height = 1300
+    # browser.config.window_width = 1900
+    # browser.config.window_height = 500
     browser.config.base_url = os.getenv('selene.base_url', 'https://demoqa.com')
     '''
     export selene_browser_name='local'
@@ -94,7 +94,12 @@ def browser_management(request):
         selenoid_capabilities = {
             'browserName': 'chrome',
             'browserVersion': browser_version,
-            'selenoid:options': {'enableVNC': True, 'enableVideo': True},
+            'selenoid:options': {
+                'enableVNC': True,
+                'enableVideo': True,
+                "screenResolution": "393x852x24",  # меняет не разрешение а рабочую область
+                #'skin': 'WVGA854',
+            },
         }
 
         options.capabilities.update(selenoid_capabilities)
