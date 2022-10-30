@@ -59,8 +59,8 @@ schema = Schema(
         'total': int,
         'total_pages': int,
     },
-    # required=False,
-    # extra=ALLOW_EXTRA,
+    required=True,
+    extra=PREVENT_EXTRA,
 )
 
 
