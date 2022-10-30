@@ -9,8 +9,7 @@ supp: tuple = {('text', str), ('url', str)}
 
 schema = Schema(
     {
-        'data': (
-            list,
+        'data': [
             {
                 'avatar': str,
                 'email': str,
@@ -53,10 +52,10 @@ schema = Schema(
                 'id': int,
                 'last_name': str,
             },
-        ),
+        ],
         'page': int,
         'per_page': int,
-        'support': (tuple, {('url', str), ('text', str)}),
+        'support': {'url': str, 'text': str},
         'total': int,
         'total_pages': int,
     },
