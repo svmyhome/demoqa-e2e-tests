@@ -2,6 +2,7 @@ import os
 import time
 from pprint import pprint
 
+import requests
 from allure_commons._allure import step
 from pytest_voluptuous import S
 from requests import Response
@@ -36,6 +37,27 @@ def test_demo_web_shop():
 
     with step('Submit login form'):
         browser.element('[value="Log in"]').click()
+
+    with step('Verify successful authorization'):
+        browser.element('.account').should(have.text(API_EMAIL))
+
+
+def test_demo_login():
+    browser.config.base_url = WEB_URL
+    result: Response = requests.post(
+        url=f'{WEB_URL}/login',
+        params={'Email': 'svmyhome@gmail.com', 'Password': '1234567890'},
+        headers={'content-type': 'application/x-www-form-urlencoded'},
+        allow_redirects=False,
+    )
+
+    authorization_cooks = result.cookies.get('NOPCOMMERCE.AUTH')
+
+    browser.open('')
+    browser.driver.add_cookie(
+        {'name': 'NOPCOMMERCE.AUTH', 'value': authorization_cooks}
+    )
+    browser.open('')
 
     with step('Verify successful authorization'):
         browser.element('.account').should(have.text(API_EMAIL))
