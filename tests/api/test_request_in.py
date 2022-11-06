@@ -62,3 +62,11 @@ def test_delete_user():
     assert (
         reqres_session().get(f'/api/users/{response.json()["id"]}').status_code == 404
     )
+
+
+def test_list_unknown():
+    result: Response = reqres_session().get('/api/unknown')
+    print(result.request.url)
+    pprint(result.json)
+    assert result.status_code == 200
+    assert result.json() == S(schemas.LIST_UNKNOWN_SCHEMA)
