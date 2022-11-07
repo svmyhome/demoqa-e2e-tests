@@ -4,11 +4,11 @@ from pytest_voluptuous import S
 from requests import Response
 
 from tests.api.schemas import schemas
-from utils.base_session import reqres_session
+from tests.conftest import reqres_session
 
 
-def test_list_users():
-    result: Response = reqres_session().get('/api/users', params={'page': 2})
+def test_list_users(reqres_session):
+    result: Response = reqres_session.get('/api/users', params={'page': 2})
     assert result.status_code == 200
     assert result.json() == S(schemas.list_schema)
     assert isinstance(result.json()['data'], list)
@@ -16,8 +16,8 @@ def test_list_users():
     assert result.json()['data'][0]['first_name'] == 'Michael'
 
 
-def test_create_user():
-    result: Response = reqres_session().post(
+def test_create_user(reqres_session):
+    result: Response = reqres_session.post(
         '/api/users', json={"name": "morpheus", "job": "leader"}
     )
     pprint(result.json())
@@ -27,9 +27,9 @@ def test_create_user():
     assert result.json()['name'] == 'morpheus'
 
 
-def test_update_user():
+def test_update_user(reqres_session):
 
-    response: Response = reqres_session().post(
+    response: Response = reqres_session.post(
         '/api/users', json={"name": "morpheus", "job": "leader"}
     )
 
@@ -37,7 +37,7 @@ def test_update_user():
     assert response.json()['job'] == 'leader'
 
     update_user = {"name": "morpheus1", "job": "zion resident"}
-    result: Response = reqres_session().put(
+    result: Response = reqres_session.put(
         f'/api/users/{response.json()["id"]}', json=update_user
     )
 
@@ -47,25 +47,23 @@ def test_update_user():
     assert result.json()['job'] == 'zion resident'
 
 
-def test_delete_user():
+def test_delete_user(reqres_session):
 
-    response: Response = reqres_session().post(
+    response: Response = reqres_session.post(
         '/api/users', json={"name": "morpheus", "job": "leader"}
     )
 
     assert response.json()['name'] == 'morpheus'
     assert response.json()['job'] == 'leader'
 
-    result: Response = reqres_session().delete(f'/api/users/{response.json()["id"]}')
+    result: Response = reqres_session.delete(f'/api/users/{response.json()["id"]}')
 
     assert result.status_code == 204
-    assert (
-        reqres_session().get(f'/api/users/{response.json()["id"]}').status_code == 404
-    )
+    assert reqres_session.get(f'/api/users/{response.json()["id"]}').status_code == 404
 
 
-def test_list_unknown():
-    result: Response = reqres_session().get('/api/unknown')
+def test_list_unknown(reqres_session):
+    result: Response = reqres_session.get('/api/unknown')
     print(result.request.url)
     pprint(result.json)
     assert result.status_code == 200
