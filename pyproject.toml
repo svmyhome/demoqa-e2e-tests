@@ -17,6 +17,8 @@ voluptuous = "^0.13.1"
 pytest-voluptuous = "^1.2.0"
 jsonschema = "^4.17.0"
 
+[tool.pytest.ini_options]
+addopts = "--alluredir=allure-results --clean-alluredir"
 
 [build-system]
 requires = ["poetry-core"]
