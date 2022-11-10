@@ -4,7 +4,6 @@ from pytest_voluptuous import S
 from requests import Response
 
 from tests.api.schemas import schemas
-from tests.conftest import reqres_session
 
 
 def test_list_users(reqres_session):

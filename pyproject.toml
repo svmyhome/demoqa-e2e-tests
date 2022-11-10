@@ -17,6 +17,10 @@ voluptuous = "^0.13.1"
 pytest-voluptuous = "^1.2.0"
 jsonschema = "^4.17.0"
 
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.15.5"
+black = {extras = ["d"], version = "^22.10.0"}
+
 [tool.pytest.ini_options]
 addopts = "--alluredir=allure-results --clean-alluredir"
 
