@@ -1,10 +1,10 @@
-pytest==7.2.0
-selene==2.0.0b14
+pytest==7.2.*
+selene==2.0.*
 selenium
 Faker
-allure-pytest==2.11.1
+allure-pytest==2.11.*
 python-dotenv==0.21.0
-requests==2.28.1
+requests==2.28.*
 voluptuous
 pytest-voluptuous
-jsonschema==4.16.0
+jsonschema==4.16.*

@@ -16,6 +16,12 @@ or
 python3 -m venv .venv - создает виртуальное окружение через коммандную строку
 source .venv/bin/activate - активирует виртуальное окружение
 
+### pip
+
+pip list список зависимостей
+pip freeze - выводит на экран все используемые зависимости
+pip freeze > requ.txt
+
 ### pyTest
 pytest --fixtures -- список всех используемых фикстур
 pytest tests/  --alluredir=./tests/allure-results
