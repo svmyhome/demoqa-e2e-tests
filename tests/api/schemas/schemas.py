@@ -87,5 +87,7 @@ LIST_UNKNOWN_SCHEMA = Schema(
         "total_pages": int,
         "data": All([LIST_UNKNOWN_DATA], Length(min=1)),
         "support": LIST_UNKNOWN_SUPPORT,
-    }
+    },
+    required=True,
+    extra=PREVENT_EXTRA,
 )

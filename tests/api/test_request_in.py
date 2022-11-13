@@ -62,7 +62,7 @@ def test_delete_user(reqres_session):
 
 
 def test_list_unknown(reqres_session):
-    result: Response = reqres_session.get('/api/unknown')
+    result: Response = reqres_session.get('/api/unknown', allow_redirects=False)
     print(result.request.url)
     pprint(result.json)
     assert result.status_code == 200
