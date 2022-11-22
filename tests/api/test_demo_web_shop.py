@@ -1,10 +1,8 @@
+import logging
 import os
-import time
-from pprint import pprint
 
 import requests
 from allure_commons._allure import step
-from pytest_voluptuous import S
 from requests import Response
 from selene import have
 from selene.support.shared import browser
@@ -42,7 +40,8 @@ def test_demo_web_shop():
         browser.element('.account').should(have.text(API_EMAIL))
 
 
-def test_demo_login():
+def test_demo_login(demoqa_authorized_user):
+
     browser.config.base_url = WEB_URL
     result: Response = requests.post(
         url=f'{WEB_URL}/login',
@@ -53,6 +52,20 @@ def test_demo_login():
 
     authorization_cooks = result.cookies.get('NOPCOMMERCE.AUTH')
 
+    browser.open('')
+    browser.driver.add_cookie(
+        {'name': 'NOPCOMMERCE.AUTH', 'value': authorization_cooks}
+    )
+    browser.open('')
+
+    with step('Verify successful authorization'):
+        browser.element('.account').should(have.text(API_EMAIL))
+
+
+def test_demo_login_with_cookie_fixture(demoqa_authorized_user):
+
+    authorization_cooks = demoqa_authorized_user
+    browser.config.base_url = WEB_URL
     browser.open('')
     browser.driver.add_cookie(
         {'name': 'NOPCOMMERCE.AUTH', 'value': authorization_cooks}
@@ -82,3 +95,12 @@ def test_demo_login_base_session(shop_session):
 
     with step('Verify successful authorization'):
         browser.element('.account').should(have.text(API_EMAIL))
+
+
+def test_product_one_cart_anutorized(demoqa_session, demoqa_authorized_user):
+    result: Response = demoqa_session.post(
+        '/addproducttocart/catalog/2/1/1',
+        cookies={'NOPCOMMERCE.AUTH': demoqa_authorized_user},
+    )
+    logging.info(result)
+    assert result.status_code == 200
